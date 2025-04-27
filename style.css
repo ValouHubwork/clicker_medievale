@@ -26,13 +26,6 @@ body
     height: 100%;
 }
 
-.upgrade
-{
-    width: 30%;
-    height: 100%;
-    background-color: teal;
-}
-
 .quest_journal
 {
     width: 100%;
@@ -45,7 +38,21 @@ body
 
 .quest_journal_text
 {
-    font-size: clamp(18px, 2vw, 31px);
+    width: auto;
+    height: auto;
+    font-size: clamp(14px, 5vw, 24px);
+    max-width: 100%;
+    max-height: 90%;
+    overflow-wrap: break-word;
+    padding: 10px;
+    border: 1px dashed red;
+}
+
+.upgrade
+{
+    width: 30%;
+    height: 100%;
+    background-color: teal;
 }
 
 .upgrade_container
