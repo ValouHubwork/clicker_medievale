@@ -37,7 +37,15 @@ body
 {
     width: 100%;
     height: 18%; /* à changer selon le nb d'augment */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid yellow;
+}
+
+.quest_journal_text
+{
+    font-size: clamp(18px, 2vw, 31px);
 }
 
 .upgrade_container

@@ -6,6 +6,7 @@ localStorage.setItem('user_data', JSON.stringify(data));
 
 //journale de quête
 const quest_journal_elem = document.querySelector(".quest_journal");
+const quest_journal_text = document.querySelector(".quest_journal_text");
 let data_quest_journal = [
     "quete1",
     "quete2",
@@ -34,6 +35,7 @@ tools_upgrade.addEventListener('click', () => {
     // console.log(nb_tools_current);
 });
 
+//journal de quete
 window.setInterval( () => {
     if(data_quest_passed.length === data_quest_journal.length)
     {
@@ -48,7 +50,7 @@ window.setInterval( () => {
     {
         quest_ok = true;
     }
-    else 
+    else
     {
         let found = false; // Ajoute une variable pour savoir si tu as trouvé un doublon
         while (!found) {
@@ -66,7 +68,9 @@ window.setInterval( () => {
     }
 
     if(quest_ok)
+    {
         console.log(data_quest_journal[random_quest]);
         data_quest_passed.push(random_quest);
-
+        quest_journal_text.textContent = data_quest_journal[random_quest];
+    }
 }, 1000);
