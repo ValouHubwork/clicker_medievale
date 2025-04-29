@@ -1,6 +1,6 @@
-let data = {nb_tools : 0};
+let data = {nb_tools : 0, muted_music : false};
 //valeur dev pour remettre a 0 data.nb_sword (ajout de bouton reset ou ascension)
-localStorage.setItem('user_data', JSON.stringify(data));
+// localStorage.setItem('user_data', JSON.stringify(data));
 
 // const user_data = JSON.parse(localStorage.getItem('user_data'));
 
@@ -8,7 +8,7 @@ localStorage.setItem('user_data', JSON.stringify(data));
 const background_music = new Audio();
 background_music.src = "./ressources/sound/Tidecaller.mp3";
 background_music.loop = true;
-background_music.volume = 0.5
+background_music.volume = 0.3
 const sound_elem = document.querySelector(".sound_control");
 
 //journale de quête
@@ -79,17 +79,22 @@ const tools_price_elem = document.querySelector(".tools_price");
 const nb_tools_elem = document.querySelector(".nb_tools");
 let nb_tools_current = 0;
 
-
+let user_data = JSON.parse(localStorage.getItem('user_data')) || { nb_tools: 0, muted_music: false };
+background_music.muted = user_data.muted_music;
+if (background_music.muted){
+    sound_elem.setAttribute("src", "./ressources/img/muted.png");
+}else{
+    sound_elem.setAttribute("src", "./ressources/img/unmuted.png");
+}
 
 tools_upgrade.addEventListener('click', () => {
-    nb_tools_current += 1;
-
     //sauvegarde du compteur de tools
     const user_data = JSON.parse(localStorage.getItem('user_data'));
     data.nb_tools = user_data.nb_tools + 1;
+    data.muted_music = background_music.muted;
     localStorage.setItem('user_data', JSON.stringify(data));
     
-    nb_tools_elem.textContent = nb_tools_current;
+    nb_tools_elem.textContent = data.nb_tools;
     console.log(user_data.nb_tools);
     // console.log(nb_tools_current);
 });
@@ -102,10 +107,8 @@ function getRandomQuest()
         console.log("Toutes les quêtes ont été affichées, reset !");
         availableQuests = [...data_quest_journal];
     }
-
     const randomIndex = Math.floor(Math.random() * availableQuests.length);
     const quest = availableQuests.splice(randomIndex, 1)[0]; // Retire la quête tirée
-
     return quest;
 }
 
@@ -119,16 +122,30 @@ window.setInterval(() => {
         quest_journal_text.style.opacity = "1";
         console.log(newQuest);
     }, 600);
-}, 10000);
+}, 15000);
 
 sound_elem.addEventListener("click", () => {
+    //sauvegarde de la musique muted
+    const user_data = JSON.parse(localStorage.getItem('user_data'));
     background_music.muted = !background_music.muted;
+    data.muted_music = background_music.muted;
+    localStorage.setItem('user_data', JSON.stringify(data));
+
     if(background_music.muted)
         sound_elem.setAttribute("src", "./ressources/img/muted.png");
     else
         sound_elem.setAttribute("src", "./ressources/img/unmuted.png");
 });
 
+window.setInterval(() => {
+    const user_data = JSON.parse(localStorage.getItem('user_data'));
+    nb_tools_elem.textContent = user_data.nb_tools;
+}, 0);
+
 window.addEventListener("click", () => {
-    background_music.play();
+    let user_data = JSON.parse(localStorage.getItem('user_data')) || { nb_tools: 0, muted_music: false };
+    background_music.muted = user_data.muted_music;
+    console.log("le son est mute ? : " + background_music.muted);
+    if (!background_music.muted)
+        background_music.play();
 });
