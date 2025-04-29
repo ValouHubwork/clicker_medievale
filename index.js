@@ -73,6 +73,11 @@ let data_quest_journal = [
 ];
 let availableQuests = [...data_quest_journal];
 
+//sous menu pour paramètre
+const sous_menu_param = document.querySelector(".param_menu");
+const btn_param = document.querySelector(".param_control");
+let param_open = false;
+
 //var outils de base
 const tools_upgrade = document.querySelector(".tools_upgrade");
 const tools_price_elem = document.querySelector(".tools_price");
@@ -137,6 +142,16 @@ sound_elem.addEventListener("click", () => {
         sound_elem.setAttribute("src", "./ressources/img/unmuted.png");
 });
 
+btn_param.addEventListener("click", () => {
+    if(!param_open){
+        sous_menu_param.style.visibility = "visible";
+        param_open = true;
+    }else{
+        sous_menu_param.style.visibility = "hidden";
+        param_open = false;
+    }
+});
+
 window.setInterval(() => {
     const user_data = JSON.parse(localStorage.getItem('user_data'));
     nb_tools_elem.textContent = user_data.nb_tools;
@@ -149,3 +164,4 @@ window.addEventListener("click", () => {
     if (!background_music.muted)
         background_music.play();
 });
+
