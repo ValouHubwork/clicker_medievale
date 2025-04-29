@@ -103,7 +103,12 @@ function getRandomQuest()
 
 // Mise à jour du journal toutes les secondes
 window.setInterval(() => {
-    const newQuest = getRandomQuest();
-    quest_journal_text.textContent = newQuest;
-    console.log(newQuest);
-}, 1000);
+    quest_journal_text.style.opacity = "0.4";
+
+    setTimeout( () => {
+        const newQuest = getRandomQuest();
+        quest_journal_text.textContent = newQuest;
+        quest_journal_text.style.opacity = "1";
+        console.log(newQuest);
+    }, 600);
+}, 10000);
