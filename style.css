@@ -43,6 +43,14 @@ body
     left: 15px;
 }
 
+.param_menu
+{
+    position: absolute;
+    top: 45px;
+    left: 15px;
+    background: url(./ressources/img/fond_param.jpg);
+}
+
 .text
 {
     font-family: "j12";
