@@ -14,7 +14,7 @@ let data_quest_journal = [
     "Le maire de Bourbier-Moqueux a déclaré la guerre à un tas de fumier, affirmant qu'il lui avait 'manqué de respect'.",
     "Cherche aventurier pour récupérer une poule très précieuse. Elle répond au nom de ‘Bernadette’ et est plus vicieuse qu’elle n’en a l’air.",
     "Récompense à qui retrouvera la bague de mariage du forgeron. Il jure qu’elle n’est pas dans le puits… mais allez quand même vérifier.",
-    "Besoin urgent d’un héros ! Problème : la taverne est à court de bière. C’est une CRISE NATIONALE.",
+    "Besoin urgent d’un héros ! Problème : la taverne est à court de bière. C’est une crise nationale.",
     "Un apprenti mage a transformé son maître en chaise. Il faudrait le retrouver avant qu’un client ne s’assoie dessus.",
     "Le roi veut un gâteau d’anniversaire géant. Problème : il faut un œuf de dragon pour la recette. Détails à voir avec le pâtissier.",
     "Un village entier a été transformé en moutons. On ne sait pas qui est l’ennemi, mais on sait qu’il adore la laine.",
