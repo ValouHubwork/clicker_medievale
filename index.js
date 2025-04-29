@@ -76,7 +76,7 @@ let nb_tools_current = 0;
 tools_upgrade.addEventListener('click', () => {
     nb_tools_current += 1;
 
-    //sauvegarde du compteur d'épée
+    //sauvegarde du compteur de tools
     const user_data = JSON.parse(localStorage.getItem('user_data'));
     data.nb_tools = user_data.nb_tools + 1;
     localStorage.setItem('user_data', JSON.stringify(data));
