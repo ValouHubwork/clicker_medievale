@@ -24,6 +24,25 @@ body
     -ms-user-select: none;     /* Internet Explorer/Edge */
 }
 
+.controller
+{
+    position: absolute;
+    width: 32px;
+    height: 32px;
+}
+
+.sound_control
+{
+    top: 8px;
+    left: 55px;
+}
+
+.param_control
+{
+    top: 8px;
+    left: 15px;
+}
+
 .text
 {
     font-family: "j12";

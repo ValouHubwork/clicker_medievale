@@ -4,6 +4,13 @@ localStorage.setItem('user_data', JSON.stringify(data));
 
 // const user_data = JSON.parse(localStorage.getItem('user_data'));
 
+//musique de fond
+const background_music = new Audio();
+background_music.src = "./ressources/sound/Tidecaller.mp3";
+background_music.loop = true;
+background_music.volume = 0.5
+const sound_elem = document.querySelector(".sound_control");
+
 //journale de quête
 const quest_journal_elem = document.querySelector(".quest_journal");
 const quest_journal_text = document.querySelector(".quest_journal_text");
@@ -73,6 +80,7 @@ const nb_tools_elem = document.querySelector(".nb_tools");
 let nb_tools_current = 0;
 
 
+
 tools_upgrade.addEventListener('click', () => {
     nb_tools_current += 1;
 
@@ -112,3 +120,15 @@ window.setInterval(() => {
         console.log(newQuest);
     }, 600);
 }, 10000);
+
+sound_elem.addEventListener("click", () => {
+    background_music.muted = !background_music.muted;
+    if(background_music.muted)
+        sound_elem.setAttribute("src", "./ressources/img/muted.png");
+    else
+        sound_elem.setAttribute("src", "./ressources/img/unmuted.png");
+});
+
+window.addEventListener("click", () => {
+    background_music.play();
+});
