@@ -211,10 +211,9 @@ window.addEventListener("click", () => {
         background_music.play();
 });
 
-tools_upgrade.addEventListener("mouseover", (e) => {
-    console.log(e.pageY);
-    sous_menu_tools.style.top = (e.pageY-50) + "px";
-    sous_menu_tools.style.left = "400px";
+tools_upgrade.addEventListener("mouseenter", () => {
+    sous_menu_tools.style.top = (tools_upgrade.getBoundingClientRect().top + 5 + window.scrollY) + "px";
+    sous_menu_tools.style.left = (tools_upgrade.getBoundingClientRect().left - 130 + window.scrollX) + "px";
     setTimeout(() => {
         sous_menu_tools.style.visibility = "visible";
         sous_menu_tools.style.opacity = "1";
@@ -222,9 +221,8 @@ tools_upgrade.addEventListener("mouseover", (e) => {
 });
 
 tools_upgrade.addEventListener("mouseleave", () => {
-    console.log("quitté");
     sous_menu_tools.style.opacity = "0";
     setTimeout(() => {
         sous_menu_tools.style.visibility = "hidden";
-    }, 350);
+    }, 300);
 });

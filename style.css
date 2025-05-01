@@ -211,7 +211,7 @@ body
     position: absolute;
     width: 100px;
     height: 100px;
-    transition: top 0.2s ease, left 0.2s ease, opacity 0.35s ease;
+    transition: top 0.2s ease, left 0.2s ease, opacity 0.3s ease;
     visibility: hidden;
     opacity: 0;
     background-color: blueviolet;
