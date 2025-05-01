@@ -211,3 +211,20 @@ window.addEventListener("click", () => {
         background_music.play();
 });
 
+tools_upgrade.addEventListener("mouseover", (e) => {
+    console.log(e.pageY);
+    sous_menu_tools.style.top = (e.pageY-50) + "px";
+    sous_menu_tools.style.left = "400px";
+    setTimeout(() => {
+        sous_menu_tools.style.visibility = "visible";
+        sous_menu_tools.style.opacity = "1";
+    }, 100);
+});
+
+tools_upgrade.addEventListener("mouseleave", () => {
+    console.log("quitté");
+    sous_menu_tools.style.opacity = "0";
+    setTimeout(() => {
+        sous_menu_tools.style.visibility = "hidden";
+    }, 350);
+});
