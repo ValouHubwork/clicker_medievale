@@ -8,8 +8,13 @@ let data = {nb_tools : 0, muted_music : false};
 const background_music = new Audio();
 background_music.src = "./ressources/sound/Tidecaller.mp3";
 background_music.loop = true;
-background_music.volume = 0.3
+background_music.volume = 0.3;
 const sound_elem = document.querySelector(".sound_control");
+
+//son pour les boutons
+const button_sound = new Audio();
+button_sound.src = "./ressources/sound/button_ui.wav";
+button_sound.volume = 0.3;
 
 //journale de quête
 const quest_journal_elem = document.querySelector(".quest_journal");
@@ -78,6 +83,9 @@ const sous_menu_param = document.querySelector(".param_menu");
 const btn_param = document.querySelector(".param_control");
 let param_open = false;
 
+//sous menu pour upgrade
+const sous_menu_tools = document.querySelector(".sous_menu_tools");
+
 //var outils de base
 const tools_upgrade = document.querySelector(".tools_upgrade");
 const tools_price_elem = document.querySelector(".tools_price");
@@ -92,6 +100,12 @@ if (background_music.muted){
     sound_elem.setAttribute("src", "./ressources/img/unmuted.png");
 }
 
+
+/**
+ * ----------------- UPGRADE ----------------------------------------------------------------------------------------------------------------------------------
+ */
+
+//gère les attribut de tools
 tools_upgrade.addEventListener('click', () => {
     //sauvegarde du compteur de tools
     const user_data = JSON.parse(localStorage.getItem('user_data'));
@@ -104,6 +118,16 @@ tools_upgrade.addEventListener('click', () => {
     // console.log(nb_tools_current);
 });
 
+/**
+ * ----------------- FIN UPGRADE ----------------------------------------------------------------------------------------------------------------------------------
+ */
+
+
+
+
+/**
+ * ----------------- JOURNAL DE QUETE ----------------------------------------------------------------------------------------------------------------------------------
+ */
 // Fonction pour tirer une quête aléatoire sans répétition
 function getRandomQuest()
 {
@@ -129,6 +153,18 @@ window.setInterval(() => {
     }, 600);
 }, 15000);
 
+/**
+ * ----------------- FIN JOURNAL DE QUETE ----------------------------------------------------------------------------------------------------------------------------------
+ */
+
+
+
+
+/**
+ * ----------------- BOUTON PARAM ----------------------------------------------------------------------------------------------------------------------------------
+ */
+
+//gère l'état du bouton musique de fond
 sound_elem.addEventListener("click", () => {
     //sauvegarde de la musique muted
     const user_data = JSON.parse(localStorage.getItem('user_data'));
@@ -136,12 +172,14 @@ sound_elem.addEventListener("click", () => {
     data.muted_music = background_music.muted;
     localStorage.setItem('user_data', JSON.stringify(data));
 
+    button_sound.play();
     if(background_music.muted)
         sound_elem.setAttribute("src", "./ressources/img/muted.png");
     else
         sound_elem.setAttribute("src", "./ressources/img/unmuted.png");
 });
 
+//gère l'état du bouton de param
 btn_param.addEventListener("click", () => {
     if(!param_open){
         sous_menu_param.style.visibility = "visible";
@@ -150,13 +188,21 @@ btn_param.addEventListener("click", () => {
         sous_menu_param.style.visibility = "hidden";
         param_open = false;
     }
+    button_sound.play();
 });
 
+/**
+ * ----------------- FIN BOUTON PARAM ----------------------------------------------------------------------------------------------------------------------------------
+ */
+
+
+//mets a jour le nb de chaque upgrade
 window.setInterval(() => {
     const user_data = JSON.parse(localStorage.getItem('user_data'));
     nb_tools_elem.textContent = user_data.nb_tools;
 }, 0);
 
+//déclenche la musique ou non
 window.addEventListener("click", () => {
     let user_data = JSON.parse(localStorage.getItem('user_data')) || { nb_tools: 0, muted_music: false };
     background_music.muted = user_data.muted_music;
