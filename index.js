@@ -1,4 +1,10 @@
-let data = {nb_tools : 0, muted_music : false};
+let data = {
+    muted_music : false,
+    current_count : 0.00,
+    cps : 0,
+    nb_tools : 0,
+    tools_price : 10,
+};
 //valeur dev pour remettre a 0 data.nb_sword (ajout de bouton reset ou ascension)
 // localStorage.setItem('user_data', JSON.stringify(data));
 
@@ -86,13 +92,19 @@ let param_open = false;
 //sous menu pour upgrade
 const sous_menu_tools = document.querySelector(".sous_menu_tools");
 
-//var outils de base
+//compteur
+const count_current_elem = document.querySelector(".count_current");
+const cps_elem = document.querySelector(".cps");
+
+//var outils
 const tools_upgrade = document.querySelector(".tools_upgrade");
 const tools_price_elem = document.querySelector(".tools_price");
 const nb_tools_elem = document.querySelector(".nb_tools");
 let nb_tools_current = 0;
 
-let user_data = JSON.parse(localStorage.getItem('user_data')) || { nb_tools: 0, muted_music: false };
+
+
+let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
 background_music.muted = user_data.muted_music;
 if (background_music.muted){
     sound_elem.setAttribute("src", "./ressources/img/muted.png");
@@ -195,21 +207,19 @@ btn_param.addEventListener("click", () => {
  * ----------------- FIN BOUTON PARAM ----------------------------------------------------------------------------------------------------------------------------------
  */
 
-
-//mets a jour le nb de chaque upgrade
-window.setInterval(() => {
-    const user_data = JSON.parse(localStorage.getItem('user_data'));
-    nb_tools_elem.textContent = user_data.nb_tools;
-}, 0);
-
 //déclenche la musique ou non
 window.addEventListener("click", () => {
-    let user_data = JSON.parse(localStorage.getItem('user_data')) || { nb_tools: 0, muted_music: false };
+    let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
     background_music.muted = user_data.muted_music;
     console.log("le son est mute ? : " + background_music.muted);
     if (!background_music.muted)
         background_music.play();
 });
+
+
+/**
+ * ----------------- SOUS MENU UPGRADE ----------------------------------------------------------------------------------------------------------------------------------
+ */
 
 tools_upgrade.addEventListener("mouseenter", () => {
     sous_menu_tools.style.top = (tools_upgrade.getBoundingClientRect().top + 5 + window.scrollY) + "px";
@@ -226,3 +236,25 @@ tools_upgrade.addEventListener("mouseleave", () => {
         sous_menu_tools.style.visibility = "hidden";
     }, 300);
 });
+
+/**
+ * ----------------- FIN SOUS MENU UPGRADE ----------------------------------------------------------------------------------------------------------------------------------
+ */
+
+// //mis a jour du compteur
+// window.setInterval(() => {
+//     let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
+
+// }, 0);
+
+//mets a jour le nb de chaque upgrade
+window.setInterval(() => {
+    let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
+    console.log(user_data);
+    //maj affichage compteur
+    count_current_elem.textContent = parseFloat(user_data.current_count) + " d'or";
+    cps_elem.textContent = parseFloat(user_data.cps) + "ops";
+
+    //mets a jour l'affichage nb de chaque upgrade
+    nb_tools_elem.textContent = user_data.nb_tools;
+}, 0);
