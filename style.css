@@ -123,6 +123,13 @@ body
     border: 1px solid black;
 }
 
+.click
+{
+    position: absolute;
+    opacity: 0;
+    /* visibility: hidden; */
+}
+
 .quest_journal
 {
     width: 100%;

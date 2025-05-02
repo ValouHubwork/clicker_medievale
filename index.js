@@ -6,7 +6,7 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     tools_price : 10,
 };
 //valeur dev pour remettre a 0 data.nb_sword (ajout de bouton reset ou ascension)
-// localStorage.setItem('user_data', JSON.stringify(data));
+localStorage.setItem('user_data', JSON.stringify(data));
 
 // const user_data = JSON.parse(localStorage.getItem('user_data'));
 
@@ -96,6 +96,10 @@ const sous_menu_tools = document.querySelector(".sous_menu_tools");
 const count_current_elem = document.querySelector(".count_current");
 const cps_elem = document.querySelector(".cps");
 
+//animations visible par le joueur
+const animations_visible_elem = document.querySelector(".animation_visible");
+const click_elem = document.querySelector(".click");
+
 //var outils
 const tools_upgrade = document.querySelector(".tools_upgrade");
 const tools_price_elem = document.querySelector(".tools_price");
@@ -120,15 +124,20 @@ if (background_music.muted){
 //gère les attribut de tools
 tools_upgrade.addEventListener('click', () => {
     //sauvegarde du compteur de tools
-    data.nb_tools += 1;
-    data.muted_music = background_music.muted;
-    data.tools_price += 3;
-    localStorage.setItem('user_data', JSON.stringify(data));
-
-    nb_tools_elem.textContent = data.nb_tools;
-    tools_price_elem.textContent = data.tools_price;
-    console.log(user_data.nb_tools);
-    // console.log(nb_tools_current);
+    if(data.current_count >= data.tools_price)
+    {
+        data.nb_tools += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.tools_price;
+        data.tools_price += 3;
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_tools_elem.textContent = data.nb_tools;
+        tools_price_elem.textContent = data.tools_price;
+        
+        console.log(user_data.nb_tools);
+        // console.log(nb_tools_current);
+    }
 });
 
 /**
@@ -267,6 +276,26 @@ window.setInterval(() => {
 
     //mise a jour de l'affichage des prix
     tools_price_elem.textContent = "prix : " + data.tools_price + " or";
-
-    //clic
 }, 0);
+
+
+//clic sur animations
+animations_visible_elem.addEventListener("click", (e) => {
+    click_elem.style.visibility = "visible"
+    click_elem.style.opacity = 1;
+    click_elem.style.top = e.pageY;
+    click_elem.style.left = e.pageX;
+    click_elem.textContent = "+" + data.cps;
+});
+
+
+
+
+
+
+
+const resetButton = document.querySelector(".reset_button");
+resetButton.addEventListener("click", () => {
+    localStorage.removeItem('user_data');
+    location.reload(); // recharge avec valeurs par défaut
+});
