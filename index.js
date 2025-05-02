@@ -1,4 +1,4 @@
-let data = {
+let data = JSON.parse(localStorage.getItem('user_data')) || {
     muted_music : false,
     current_count : 0.00,
     cps : 0,
@@ -120,11 +120,10 @@ if (background_music.muted){
 //gère les attribut de tools
 tools_upgrade.addEventListener('click', () => {
     //sauvegarde du compteur de tools
-    const user_data = JSON.parse(localStorage.getItem('user_data'));
-    data.nb_tools = user_data.nb_tools + 1;
+    data.nb_tools += 1;
     data.muted_music = background_music.muted;
     localStorage.setItem('user_data', JSON.stringify(data));
-    
+
     nb_tools_elem.textContent = data.nb_tools;
     console.log(user_data.nb_tools);
     // console.log(nb_tools_current);
@@ -179,7 +178,6 @@ window.setInterval(() => {
 //gère l'état du bouton musique de fond
 sound_elem.addEventListener("click", () => {
     //sauvegarde de la musique muted
-    const user_data = JSON.parse(localStorage.getItem('user_data'));
     background_music.muted = !background_music.muted;
     data.muted_music = background_music.muted;
     localStorage.setItem('user_data', JSON.stringify(data));
@@ -209,8 +207,7 @@ btn_param.addEventListener("click", () => {
 
 //déclenche la musique ou non
 window.addEventListener("click", () => {
-    let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
-    background_music.muted = user_data.muted_music;
+    background_music.muted = data.muted_music;
     console.log("le son est mute ? : " + background_music.muted);
     if (!background_music.muted)
         background_music.play();
@@ -248,20 +245,21 @@ tools_upgrade.addEventListener("mouseleave", () => {
 // }, 0);
 
 window.setInterval(() => {
-    let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
-    data.cps = user_data.cps;
+    data.cps = 1;
+    data.current_count += data.cps;
     localStorage.setItem('user_data', JSON.stringify(data));
-});
+}, 1000);
 
+// window.setInterval(() => {
+//     localStorage.setItem('user_data', JSON.stringify(data));
+// });
 
 //mets a jour le nb de chaque upgrade
 window.setInterval(() => {
-    let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
-
     //maj affichage compteur
-    count_current_elem.textContent = parseFloat(user_data.current_count) + " d'or";
-    cps_elem.textContent = parseFloat(user_data.cps) + "ops";
+    count_current_elem.textContent = data.current_count.toFixed(2) + " d'or";
+    cps_elem.textContent = data.cps.toFixed(2) + " ops";
 
     //mets a jour l'affichage nb de chaque upgrade
-    nb_tools_elem.textContent = user_data.nb_tools;
+    nb_tools_elem.textContent = data.nb_tools;
 }, 0);
