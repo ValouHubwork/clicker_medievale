@@ -247,10 +247,17 @@ tools_upgrade.addEventListener("mouseleave", () => {
 
 // }, 0);
 
+window.setInterval(() => {
+    let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
+    data.cps = user_data.cps;
+    localStorage.setItem('user_data', JSON.stringify(data));
+});
+
+
 //mets a jour le nb de chaque upgrade
 window.setInterval(() => {
     let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
-    console.log(user_data);
+
     //maj affichage compteur
     count_current_elem.textContent = parseFloat(user_data.current_count) + " d'or";
     cps_elem.textContent = parseFloat(user_data.cps) + "ops";
