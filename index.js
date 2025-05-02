@@ -122,9 +122,11 @@ tools_upgrade.addEventListener('click', () => {
     //sauvegarde du compteur de tools
     data.nb_tools += 1;
     data.muted_music = background_music.muted;
+    data.tools_price += 3;
     localStorage.setItem('user_data', JSON.stringify(data));
 
     nb_tools_elem.textContent = data.nb_tools;
+    tools_price_elem.textContent = data.tools_price;
     console.log(user_data.nb_tools);
     // console.log(nb_tools_current);
 });
@@ -262,4 +264,9 @@ window.setInterval(() => {
 
     //mets a jour l'affichage nb de chaque upgrade
     nb_tools_elem.textContent = data.nb_tools;
+
+    //mise a jour de l'affichage des prix
+    tools_price_elem.textContent = "prix : " + data.tools_price + " or";
+
+    //clic
 }, 0);
