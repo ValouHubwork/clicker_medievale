@@ -4,9 +4,11 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     cps : 0,
     nb_tools : 0,
     tools_price : 10,
+    cps_tools : 0,
+    total_tools : 0,
 };
 //valeur dev pour remettre a 0 data.nb_sword (ajout de bouton reset ou ascension)
-localStorage.setItem('user_data', JSON.stringify(data));
+// localStorage.setItem('user_data', JSON.stringify(data));
 
 // const user_data = JSON.parse(localStorage.getItem('user_data'));
 
@@ -90,7 +92,10 @@ const btn_param = document.querySelector(".param_control");
 let param_open = false;
 
 //sous menu pour upgrade
+const sous_menu_upgrade = document.querySelector(".sous_menu_upgrade")
 const sous_menu_tools = document.querySelector(".sous_menu_tools");
+const cps_tools_elem = document.querySelector(".cps_tools");
+const total_tools_elem = document.querySelector(".total_tools");
 
 //compteur
 const count_current_elem = document.querySelector(".count_current");
@@ -104,7 +109,7 @@ const click_elem = document.querySelector(".click");
 const tools_upgrade = document.querySelector(".tools_upgrade");
 const tools_price_elem = document.querySelector(".tools_price");
 const nb_tools_elem = document.querySelector(".nb_tools");
-let nb_tools_current = 0;
+let cps_tools = 0;
 
 
 
@@ -130,12 +135,15 @@ tools_upgrade.addEventListener('click', () => {
         data.muted_music = background_music.muted;
         data.current_count -= data.tools_price;
         data.tools_price += 3;
+        data.cps_tools = 0.1*data.nb_tools;
+
         localStorage.setItem('user_data', JSON.stringify(data));
     
         nb_tools_elem.textContent = data.nb_tools;
         tools_price_elem.textContent = data.tools_price;
         
-        console.log(user_data.nb_tools);
+        console.log(data.nb_tools);
+        console.log(data.cps_tools);
         // console.log(nb_tools_current);
     }
 });
@@ -229,43 +237,40 @@ window.addEventListener("click", () => {
  * ----------------- SOUS MENU UPGRADE ----------------------------------------------------------------------------------------------------------------------------------
  */
 
-tools_upgrade.addEventListener("mouseenter", () => {
-    sous_menu_tools.style.top = (tools_upgrade.getBoundingClientRect().top + 5 + window.scrollY) + "px";
-    sous_menu_tools.style.left = (tools_upgrade.getBoundingClientRect().left - 130 + window.scrollX) + "px";
-    setTimeout(() => {
-        sous_menu_tools.style.visibility = "visible";
-        sous_menu_tools.style.opacity = "1";
-    }, 100);
-});
+document.querySelectorAll('.upgrade_container').forEach((item) => {
+    const targetId = item.dataset.target;
+    const sousMenu = document.getElementById(targetId);
 
-tools_upgrade.addEventListener("mouseleave", () => {
-    sous_menu_tools.style.opacity = "0";
-    setTimeout(() => {
-        sous_menu_tools.style.visibility = "hidden";
-    }, 300);
+    item.addEventListener("mouseenter", () => {
+        const rect = item.getBoundingClientRect();
+        sousMenu.style.top = (rect.top - 15 + window.scrollY) + "px";
+        sousMenu.style.left = (rect.left - 330 + window.scrollX) + "px";
+
+        setTimeout(() => {
+            sousMenu.style.visibility = "visible";
+            sousMenu.style.opacity = "1";
+        }, 100);
+    });
+
+    item.addEventListener("mouseleave", () => {
+        sousMenu.style.opacity = "0";
+        setTimeout(() => {
+            sousMenu.style.visibility = "hidden";
+        }, 300);
+    });
 });
 
 /**
  * ----------------- FIN SOUS MENU UPGRADE ----------------------------------------------------------------------------------------------------------------------------------
  */
 
-// //mis a jour du compteur
-// window.setInterval(() => {
-//     let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
-
-// }, 0);
-
 window.setInterval(() => {
-    data.cps = 1;
     data.current_count += data.cps;
+    data.total_tools += data.cps_tools;
     localStorage.setItem('user_data', JSON.stringify(data));
 }, 1000);
 
-// window.setInterval(() => {
-//     localStorage.setItem('user_data', JSON.stringify(data));
-// });
-
-//mets a jour le nb de chaque upgrade
+//mets a jour l'affichage
 window.setInterval(() => {
     //maj affichage compteur
     count_current_elem.textContent = data.current_count.toFixed(2) + " d'or";
@@ -275,17 +280,37 @@ window.setInterval(() => {
     nb_tools_elem.textContent = data.nb_tools;
 
     //mise a jour de l'affichage des prix
-    tools_price_elem.textContent = "prix : " + data.tools_price + " or";
+    tools_price_elem.textContent = "prix : " + data.tools_price.toFixed(2) + " or";
+
+    //maj affichage sous menu upgrade
+    cps_tools_elem.textContent = "Les outils vous rapportent " + data.cps_tools.toFixed(2) + " OpS soit " + (data.cps_tools*100/data.cps).toFixed(2) + "%";
+    total_tools_elem.textContent = "Les outils vous ont rapporté un total de " + data.total_tools.toFixed(2) + " or"; 
+}, 0);
+
+
+setInterval(() => {
+    data.cps = data.cps_tools;
 }, 0);
 
 
 //clic sur animations
 animations_visible_elem.addEventListener("click", (e) => {
+    let clic = 1+0.2*data.cps;
+    data.current_count += clic;
     click_elem.style.visibility = "visible"
     click_elem.style.opacity = 1;
-    click_elem.style.top = e.pageY;
-    click_elem.style.left = e.pageX;
-    click_elem.textContent = "+" + data.cps;
+    click_elem.style.left = (e.pageX-20) + "px";
+    click_elem.style.top = (e.pageY-30) + "px";
+    click_elem.textContent = "+" + clic.toFixed(2);
+
+    click_elem.classList.remove("animate-float");
+    void click_elem.offsetWidth; // force reflow
+    click_elem.classList.add("animate-float");
+
+    // Et le cacher complètement après l'animation (ex : 800ms total)
+    setTimeout(() => {
+        click_elem.style.visibility = "hidden";
+    }, 400);
 });
 
 

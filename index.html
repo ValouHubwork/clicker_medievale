@@ -14,7 +14,7 @@
         </div>
 
         <img src="./ressources/img/zone_anim_test_mod.png" alt="" draggable="false" class="animation_visible noselect">
-        <p class="click"></p>
+        <p class="click text noselect"></p>
 
         <div class="sous_menu">
             <img src="./ressources/img/unmuted.png" alt="" draggable="false" class="sound_control unmuted controller noselect ">
@@ -33,7 +33,7 @@
             <p class="quest_journal_text text"></p>
         </div>
 
-        <div class="upgrade_container tools_upgrade">
+        <div class="upgrade_container tools_upgrade" data-target="smtools">
             <img src="./ressources/img/epee_2-removebg-preview.png" alt="" draggable="false" class="noselect">
             <div class="upgrade_text noselect">
                 <h2 class="upgrade_title text_upgrade text">Outils</h2>
@@ -44,12 +44,13 @@
                 <p class="nb_tools text"></p>
             </div>
         </div>
-
-        <div class="sous_menu_upgrade sous_menu_tools">
-            argent par seconde,
-            total gagné avec cette amélioration
+        
+        <div class="sous_menu_upgrade sous_menu_tools" id="smtools">
+            <p class="cps_tools smtext text"></p>
+            <p class="total_tools smtext text"></p>
         </div>
 
+        <!-- <div class="sous_menu_upgrade"></div>
         <div class="sous_menu_upgrade"></div>
         <div class="sous_menu_upgrade"></div>
         <div class="sous_menu_upgrade"></div>
@@ -58,8 +59,7 @@
         <div class="sous_menu_upgrade"></div>
         <div class="sous_menu_upgrade"></div>
         <div class="sous_menu_upgrade"></div>
-        <div class="sous_menu_upgrade"></div>
-        <div class="sous_menu_upgrade"></div>
+        <div class="sous_menu_upgrade"></div> -->
 
     </div>
 
