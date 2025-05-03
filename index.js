@@ -1,11 +1,20 @@
 let data = JSON.parse(localStorage.getItem('user_data')) || {
     muted_music : false,
+    total_count : 0,
     current_count : 0.00,
     cps : 0,
     nb_tools : 0,
     tools_price : 10,
     cps_tools : 0,
     total_tools : 0,
+    nb_camp : 0,
+    camp_price : 100,
+    cps_camp : 0,
+    total_camp : 0,
+    nb_table : 0,
+    table_price : 100,
+    cps_table : 0,
+    total_table : 0,
 };
 //valeur dev pour remettre a 0 data.nb_sword (ajout de bouton reset ou ascension)
 // localStorage.setItem('user_data', JSON.stringify(data));
@@ -97,6 +106,14 @@ const sous_menu_tools = document.querySelector(".sous_menu_tools");
 const cps_tools_elem = document.querySelector(".cps_tools");
 const total_tools_elem = document.querySelector(".total_tools");
 
+const sous_menu_camp = document.querySelector(".sous_menu_camp");
+const cps_camp_elem = document.querySelector(".cps_camp");
+const total_camp_elem = document.querySelector(".total_camp");
+
+const sous_menu_table = document.querySelector(".sous_menu_table");
+const cps_table_elem = document.querySelector(".cps_table");
+const total_table_elem = document.querySelector(".total_table");
+
 //compteur
 const count_current_elem = document.querySelector(".count_current");
 const cps_elem = document.querySelector(".cps");
@@ -109,7 +126,16 @@ const click_elem = document.querySelector(".click");
 const tools_upgrade = document.querySelector(".tools_upgrade");
 const tools_price_elem = document.querySelector(".tools_price");
 const nb_tools_elem = document.querySelector(".nb_tools");
-let cps_tools = 0;
+
+//var feu de camp
+const camp_upgrade = document.querySelector(".camp_upgrade");
+const camp_price_elem = document.querySelector(".camp_price");
+const nb_camp_elem = document.querySelector(".nb_camp");
+
+//var table en bois
+const table_upgrade = document.querySelector(".table_upgrade");
+const table_price_elem = document.querySelector(".table_price");
+const nb_table_elem = document.querySelector(".nb_table");
 
 
 
@@ -141,10 +167,42 @@ tools_upgrade.addEventListener('click', () => {
     
         nb_tools_elem.textContent = data.nb_tools;
         tools_price_elem.textContent = data.tools_price;
-        
-        console.log(data.nb_tools);
-        console.log(data.cps_tools);
-        // console.log(nb_tools_current);
+    }
+});
+
+//gère les attribut de camp
+camp_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.camp_price)
+    {
+        data.nb_camp += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.camp_price;
+        data.camp_price += 3;
+        data.cps_camp = 1*data.nb_camp;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_camp_elem.textContent = data.nb_camp;
+        camp_price_elem.textContent = data.camp_price;
+    }
+});
+
+//gère les attribut de table
+table_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.camp_price)
+    {
+        data.nb_table += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.table_price;
+        data.table_price += 3;
+        data.cps_table = 1*data.nb_table;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_table_elem.textContent = data.nb_table;
+        table_price_elem.textContent = data.table_price;
     }
 });
 
@@ -267,6 +325,8 @@ document.querySelectorAll('.upgrade_container').forEach((item) => {
 window.setInterval(() => {
     data.current_count += data.cps;
     data.total_tools += data.cps_tools;
+    data.total_camp += data.cps_camp;
+    data.total_table += data.cps_table;
     localStorage.setItem('user_data', JSON.stringify(data));
 }, 1000);
 
@@ -278,18 +338,27 @@ window.setInterval(() => {
 
     //mets a jour l'affichage nb de chaque upgrade
     nb_tools_elem.textContent = data.nb_tools;
+    nb_camp_elem.textContent = data.nb_camp;
+    nb_table_elem.textContent = data.nb_table;
 
     //mise a jour de l'affichage des prix
     tools_price_elem.textContent = "prix : " + data.tools_price.toFixed(2) + " or";
+    camp_price_elem.textContent = "prix : " + data.camp_price.toFixed(2) + " or";
+    table_price_elem.textContent = "prix : " + data.table_price.toFixed(2) + " or";
 
     //maj affichage sous menu upgrade
     cps_tools_elem.textContent = "Les outils vous rapportent " + data.cps_tools.toFixed(2) + " OpS soit " + (data.cps_tools*100/data.cps).toFixed(2) + "%";
-    total_tools_elem.textContent = "Les outils vous ont rapporté un total de " + data.total_tools.toFixed(2) + " or"; 
+    total_tools_elem.textContent = "Les outils vous ont rapporté un total de " + data.total_tools.toFixed(2) + " or";
+    cps_camp_elem.textContent = "Le feu de camp vous rapporte " + data.cps_camp.toFixed(2) + " OpS soit " + (data.cps_camp*100/data.cps).toFixed(2) + "%";
+    total_camp_elem.textContent = "Le feu de camp vous a rapporté un total de " + data.total_camp.toFixed(2) + " or"; 
+    cps_table_elem.textContent = "La table vous rapporte " + data.cps_table.toFixed(2) + " OpS soit " + (data.cps_table*100/data.cps).toFixed(2) + "%";
+    total_table_elem.textContent = "La table vous a rapporté un total de " + data.total_table.toFixed(2) + " or"; 
 }, 0);
 
 
 setInterval(() => {
-    data.cps = data.cps_tools;
+    data.cps = data.cps_tools + data.cps_camp + data.cps_table;
+    data.total_count += data.cps
 }, 0);
 
 
