@@ -125,11 +125,14 @@ const btn_param = document.querySelector(".param_control");
 const volume_slider = document.getElementById('volume');
 const volume_value = document.getElementById('volume_value');
 const select = document.getElementById('font_select');
-const text_elem = document.querySelector(".text");
+const text_elem = document.querySelectorAll(".text");
+const text_count_elem = document.querySelector(".count");
 select.value = data.font;
 let param_open = false;
 volume_slider.value = data.volume;
 volume_value.textContent = (data.volume*100).toFixed(0) + "%";
+change_font();
+
 
 //sous menu pour upgrade
 const sous_menu_upgrade = document.querySelector(".sous_menu_upgrade")
@@ -322,10 +325,12 @@ volume_slider.addEventListener('input', () => {
     console.log('data.volume ' + data.volume);
 });
 
-// select.addEventListener("change", () => {
-//     if(select.value === j12)
+select.addEventListener("change", () => {
+    button_sound.play();
+    change_font();
 
-// });
+    localStorage.setItem('user_data', JSON.stringify(data));
+});
 
 /**
  * ----------------- FIN BOUTON PARAM ----------------------------------------------------------------------------------------------------------------------------------
@@ -443,3 +448,51 @@ resetButton.addEventListener("click", () => {
     location.reload(); // recharge avec valeurs par défaut
     console.log("reset");
 });
+
+
+
+
+
+
+function change_font()
+{
+    if(select.value === "monospace")
+    {
+        text_count_elem.style.fontSize = "14px";
+        document.querySelector(".count_current").style.fontSize = "40px";
+        document.querySelector(".cps").style.fontSize = "24px";
+        text_elem.forEach(elem => {
+            elem.style.fontSize = "14px";
+        });
+    }
+    else
+    {
+        text_elem.forEach(elem => {
+            elem.style.fontSize = "21px";
+        });
+        document.querySelector(".click").style.fontSize = "37px";
+        text_count_elem.style.fontSize = "70px";
+        quest_journal_text.style.fontSize = "clamp(14px, 4vw, 28px)";
+        document.querySelectorAll('.upgrade_title').forEach(elem => {
+            elem.style.fontSize = "36px";
+        });
+        document.querySelectorAll('.upgrade_quote').forEach(elem => {
+            elem.style.fontSize = "14px";
+        });
+        document.querySelectorAll('.upgrade_price').forEach(elem => {
+            elem.style.fontSize = "18px";
+        });
+        document.querySelectorAll('.nb_upgrade p').forEach(elem => {
+            elem.style.fontSize = "65px";
+        });
+        document.querySelectorAll('.smtext').forEach(elem => {
+            elem.style.fontSize = "21px";
+        });
+    }
+
+    data.font = select.value;
+    text_count_elem.style.fontFamily = data.font;
+    text_elem.forEach(elem => {
+        elem.style.fontFamily = data.font;
+    });
+}
