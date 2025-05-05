@@ -1,4 +1,25 @@
-let data = JSON.parse(localStorage.getItem('user_data')) || {
+// let data = JSON.parse(localStorage.getItem('user_data')) || {
+//     font : 'j12',
+//     muted_music : false,
+//     volume : 0.3,
+//     total_count : 0,
+//     current_count : 0.00,
+//     cps : 0,
+//     nb_tools : 0,
+//     tools_price : 10,
+//     cps_tools : 0,
+//     total_tools : 0,
+//     nb_camp : 0,
+//     camp_price : 100,
+//     cps_camp : 0,
+//     total_camp : 0,
+//     nb_table : 0,
+//     table_price : 100,
+//     cps_table : 0,
+//     total_table : 0,
+// };
+
+let data = {
     font : 'j12',
     muted_music : false,
     volume : 0.3,
