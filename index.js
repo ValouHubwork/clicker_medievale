@@ -420,4 +420,5 @@ const resetButton = document.querySelector(".reset_button");
 resetButton.addEventListener("click", () => {
     localStorage.removeItem('user_data');
     location.reload(); // recharge avec valeurs par défaut
+    console.log("reset");
 });
