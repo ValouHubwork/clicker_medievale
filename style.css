@@ -88,7 +88,7 @@ body
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 60px;
+    gap: 5%;
     border: 1px solid red;
 }
 
@@ -118,8 +118,10 @@ body
 
 .animation_visible
 {
-    max-width: 512px;
-    max-height: 512px;
+    /* width: 640px;
+    height: 640px; */
+    max-width: 640px;
+    max-height: 640px;
     min-width: 256px;
     min-height: 256px;
     border: 1px solid black;
