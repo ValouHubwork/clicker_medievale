@@ -1,5 +1,5 @@
 let data = JSON.parse(localStorage.getItem('user_data')) || {
-    font : j12,
+    font : 'j12',
     muted_music : false,
     volume : 0.3,
     total_count : 0,
@@ -18,6 +18,7 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     cps_table : 0,
     total_table : 0,
 };
+console.log(data);
 //valeur dev pour remettre a 0 data.nb_sword (ajout de bouton reset ou ascension)
 localStorage.setItem('user_data', JSON.stringify(data));
 
