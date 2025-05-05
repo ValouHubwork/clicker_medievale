@@ -1,5 +1,7 @@
 let data = JSON.parse(localStorage.getItem('user_data')) || {
+    font : j12,
     muted_music : false,
+    volume : 0.3,
     total_count : 0,
     current_count : 0.00,
     cps : 0,
@@ -25,13 +27,13 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
 const background_music = new Audio();
 background_music.src = "./ressources/sound/Tidecaller.mp3";
 background_music.loop = true;
-background_music.volume = 0.3;
+background_music.volume = data.volume;
 const sound_elem = document.querySelector(".sound_control");
 
 //son pour les boutons
 const button_sound = new Audio();
 button_sound.src = "./ressources/sound/button_ui.wav";
-button_sound.volume = 0.3;
+button_sound.volume = data.volume;
 
 //journale de quête
 const quest_journal_elem = document.querySelector(".quest_journal");
@@ -98,7 +100,14 @@ let availableQuests = [...data_quest_journal];
 //sous menu pour paramètre
 const sous_menu_param = document.querySelector(".param_menu");
 const btn_param = document.querySelector(".param_control");
+const volume_slider = document.getElementById('volume');
+const volume_value = document.getElementById('volume_value');
+const select = document.getElementById('font_select');
+const text_elem = document.querySelector(".text");
+select.value = data.font;
 let param_open = false;
+volume_slider.value = data.volume;
+volume_value.textContent = (data.volume*100).toFixed(0) + "%";
 
 //sous menu pour upgrade
 const sous_menu_upgrade = document.querySelector(".sous_menu_upgrade")
@@ -277,6 +286,24 @@ btn_param.addEventListener("click", () => {
     }
     button_sound.play();
 });
+
+volume_slider.addEventListener('input', () => {
+    const value = volume_slider.value;
+    volume_value.textContent = (value*100).toFixed(0) + "%";
+    data.volume = value;
+    background_music.volume = data.volume;
+    button_sound.volume = data.volume;
+    localStorage.setItem('user_data', JSON.stringify(data));
+  
+    // Si vous avez un élément audio : audio.volume = value / 100;
+    console.log('Volume:', value); // Pour débogage
+    console.log('data.volume ' + data.volume);
+});
+
+// select.addEventListener("change", () => {
+//     if(select.value === j12)
+        
+// });
 
 /**
  * ----------------- FIN BOUTON PARAM ----------------------------------------------------------------------------------------------------------------------------------
