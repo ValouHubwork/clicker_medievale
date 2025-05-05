@@ -19,7 +19,7 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     total_table : 0,
 };
 //valeur dev pour remettre a 0 data.nb_sword (ajout de bouton reset ou ascension)
-// localStorage.setItem('user_data', JSON.stringify(data));
+localStorage.setItem('user_data', JSON.stringify(data));
 
 // const user_data = JSON.parse(localStorage.getItem('user_data'));
 
@@ -302,7 +302,7 @@ volume_slider.addEventListener('input', () => {
 
 // select.addEventListener("change", () => {
 //     if(select.value === j12)
-        
+
 // });
 
 /**
