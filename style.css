@@ -139,10 +139,10 @@ body
 
 .animation_visible
 {
-    /* width: 640px;
-    height: 640px; */
-    max-width: 640px;
-    max-height: 640px;
+    width: 41%;
+    height: auto;
+    max-width: 576px;
+    max-height: 576px;
     min-width: 256px;
     min-height: 256px;
     border: 1px solid black;

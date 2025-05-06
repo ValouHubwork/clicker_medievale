@@ -473,6 +473,8 @@ function change_font()
         document.querySelector(".click").style.fontSize = "37px";
         text_count_elem.style.fontSize = "70px";
         quest_journal_text.style.fontSize = "clamp(14px, 4vw, 28px)";
+        document.querySelector('.count_current').style.fontSize = "70px";
+        document.querySelector(".cps").style.fontSize = "40px";
         document.querySelectorAll('.upgrade_title').forEach(elem => {
             elem.style.fontSize = "36px";
         });
