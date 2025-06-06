@@ -2,31 +2,38 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     font : 'j12',
     muted_music : false,
     volume : 0.3,
+
     total_count : 0,
     current_count : 0.00,
     cps : 0,
+
     nb_tools : 0,
     tools_price : 10,
     cps_tools : 0,
     total_tools : 0,
+
     nb_camp : 0,
     camp_price : 100,
     cps_camp : 0,
     total_camp : 0,
+
     nb_table : 0,
     table_price : 100,
     cps_table : 0,
     total_table : 0,
+
     nb_tente : 0,
     tente_price : 100,
     cps_tente : 0,
     total_tente : 0,
+
     nb_corde : 0,
-    tente_corde : 100,
+    corde_price : 100,
     cps_corde : 0,
     total_corde : 0,
+    
     nb_enclume : 0,
-    tente_enclume : 100,
+    enclume_price : 100,
     cps_enclume : 0,
     total_enclume : 0,
 };
