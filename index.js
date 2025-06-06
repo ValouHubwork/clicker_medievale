@@ -17,6 +17,18 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     table_price : 100,
     cps_table : 0,
     total_table : 0,
+    nb_tente : 0,
+    tente_price : 100,
+    cps_tente : 0,
+    total_tente : 0,
+    nb_corde : 0,
+    tente_corde : 100,
+    cps_corde : 0,
+    total_corde : 0,
+    nb_enclume : 0,
+    tente_enclume : 100,
+    cps_enclume : 0,
+    total_enclume : 0,
 };
 
 // let data = {
@@ -134,8 +146,10 @@ volume_value.textContent = (data.volume*100).toFixed(0) + "%";
 change_font();
 
 
-//sous menu pour upgrade
-const sous_menu_upgrade = document.querySelector(".sous_menu_upgrade")
+/****************************** sous menu pour upgrade ******************************/
+
+const sous_menu_upgrade = document.querySelector(".sous_menu_upgrade");
+
 const sous_menu_tools = document.querySelector(".sous_menu_tools");
 const cps_tools_elem = document.querySelector(".cps_tools");
 const total_tools_elem = document.querySelector(".total_tools");
@@ -148,7 +162,21 @@ const sous_menu_table = document.querySelector(".sous_menu_table");
 const cps_table_elem = document.querySelector(".cps_table");
 const total_table_elem = document.querySelector(".total_table");
 
-//compteur
+const sous_menu_tente = document.querySelector(".sous_menu_tente");
+const cps_tente_elem = document.querySelector(".cps_tente");
+const total_tente_elem = document.querySelector(".total_tente");
+
+const sous_menu_corde = document.querySelector(".sous_menu_corde");
+const cps_corde_elem = document.querySelector(".cps_corde");
+const total_corde_elem = document.querySelector(".total_corde");
+
+const sous_menu_enclume = document.querySelector(".sous_menu_enclume");
+const cps_enclume_elem = document.querySelector(".cps_enclume");
+const total_enclume_elem = document.querySelector(".total_enclume");
+
+
+/****************************** compteur ******************************/
+
 const count_current_elem = document.querySelector(".count_current");
 const cps_elem = document.querySelector(".cps");
 
@@ -171,6 +199,20 @@ const table_upgrade = document.querySelector(".table_upgrade");
 const table_price_elem = document.querySelector(".table_price");
 const nb_table_elem = document.querySelector(".nb_table");
 
+//var tente
+const tente_upgrade = document.querySelector(".tente_upgrade");
+const tente_price_elem = document.querySelector(".tente_price");
+const nb_tente_elem = document.querySelector(".nb_tente");
+
+//var corde
+const corde_upgrade = document.querySelector(".corde_upgrade");
+const corde_price_elem = document.querySelector(".corde_price");
+const nb_corde_elem = document.querySelector(".nb_corde");
+
+//var enclume
+const enclume_upgrade = document.querySelector(".enclume_upgrade");
+const enclume_price_elem = document.querySelector(".enclume_price");
+const nb_enclume_elem = document.querySelector(".nb_enclume");
 
 
 let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
@@ -225,7 +267,7 @@ camp_upgrade.addEventListener('click', () => {
 //gère les attribut de table
 table_upgrade.addEventListener('click', () => {
     //sauvegarde du compteur de camp
-    if(data.current_count >= data.camp_price)
+    if(data.current_count >= data.table_price)
     {
         data.nb_table += 1;
         data.muted_music = background_music.muted;
@@ -237,6 +279,60 @@ table_upgrade.addEventListener('click', () => {
     
         nb_table_elem.textContent = data.nb_table;
         table_price_elem.textContent = data.table_price;
+    }
+});
+
+//gère les attribut de tente
+tente_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.tente_price)
+    {
+        data.nb_tente += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.tente_price;
+        data.tente_price += 3;
+        data.cps_tente = 1*data.nb_tente;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_tente_elem.textContent = data.nb_tente;
+        tente_price_elem.textContent = data.tente_price;
+    }
+});
+
+//gère les attribut de corde
+corde_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.corde_price)
+    {
+        data.nb_corde += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.corde_price;
+        data.corde_price += 3;
+        data.cps_corde = 1*data.nb_corde;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_corde_elem.textContent = data.nb_corde;
+        corde_price_elem.textContent = data.corde_price;
+    }
+});
+
+//gère les attribut de enclume
+enclume_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.enclume_price)
+    {
+        data.nb_enclume += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.enclume_price;
+        data.enclume_price += 3;
+        data.cps_enclume = 1*data.nb_enclume;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_enclume_elem.textContent = data.nb_enclume;
+        enclume_price_elem.textContent = data.enclume_price;
     }
 });
 
@@ -381,6 +477,9 @@ window.setInterval(() => {
     data.total_tools += data.cps_tools;
     data.total_camp += data.cps_camp;
     data.total_table += data.cps_table;
+    data.total_tente += data.cps_tente;
+    data.total_corde += data.cps_corde;
+    data.total_enclume += data.cps_enclume;
     localStorage.setItem('user_data', JSON.stringify(data));
 }, 1000);
 
@@ -394,24 +493,44 @@ window.setInterval(() => {
     nb_tools_elem.textContent = data.nb_tools;
     nb_camp_elem.textContent = data.nb_camp;
     nb_table_elem.textContent = data.nb_table;
+    nb_tente_elem.textContent = data.nb_tente;
+    nb_corde_elem.textContent = data.nb_corde;
+    nb_enclume_elem.textContent = data.nb_enclume;
+
 
     //mise a jour de l'affichage des prix
     tools_price_elem.textContent = "prix : " + data.tools_price.toFixed(2) + " or";
     camp_price_elem.textContent = "prix : " + data.camp_price.toFixed(2) + " or";
     table_price_elem.textContent = "prix : " + data.table_price.toFixed(2) + " or";
+    tente_price_elem.textContent = "prix : " + data.tente_price.toFixed(2) + " or";
+    corde_price_elem.textContent = "prix : " + data.corde_price.toFixed(2) + " or";
+    enclume_price_elem.textContent = "prix : " + data.enclume_price.toFixed(2) + " or";
+
 
     //maj affichage sous menu upgrade
     cps_tools_elem.textContent = "Les outils vous rapportent " + data.cps_tools.toFixed(2) + " OpS soit " + (data.cps_tools*100/data.cps).toFixed(2) + "%";
     total_tools_elem.textContent = "Les outils vous ont rapporté un total de " + data.total_tools.toFixed(2) + " or";
+    
     cps_camp_elem.textContent = "Le feu de camp vous rapporte " + data.cps_camp.toFixed(2) + " OpS soit " + (data.cps_camp*100/data.cps).toFixed(2) + "%";
     total_camp_elem.textContent = "Le feu de camp vous a rapporté un total de " + data.total_camp.toFixed(2) + " or"; 
+    
     cps_table_elem.textContent = "La table vous rapporte " + data.cps_table.toFixed(2) + " OpS soit " + (data.cps_table*100/data.cps).toFixed(2) + "%";
-    total_table_elem.textContent = "La table vous a rapporté un total de " + data.total_table.toFixed(2) + " or"; 
+    total_table_elem.textContent = "La table vous a rapporté un total de " + data.total_table.toFixed(2) + " or";
+    
+    cps_tente_elem.textContent = "La tente vous rapporte " + data.cps_tente.toFixed(2) + " OpS soit " + (data.cps_tente*100/data.cps).toFixed(2) + "%";
+    total_tente_elem.textContent = "La tente vous a rapporté un total de " + data.total_tente.toFixed(2) + " or";
+
+    cps_corde_elem.textContent = "La corde vous rapporte " + data.cps_corde.toFixed(2) + " OpS soit " + (data.cps_corde*100/data.cps).toFixed(2) + "%";
+    total_corde_elem.textContent = "La corde vous a rapporté un total de " + data.total_corde.toFixed(2) + " or";
+
+    cps_enclume_elem.textContent = "La enclume vous rapporte " + data.cps_enclume.toFixed(2) + " OpS soit " + (data.cps_enclume*100/data.cps).toFixed(2) + "%";
+    total_enclume_elem.textContent = "La enclume vous a rapporté un total de " + data.total_enclume.toFixed(2) + " or";
+
 }, 0);
 
 
 setInterval(() => {
-    data.cps = data.cps_tools + data.cps_camp + data.cps_table;
+    data.cps = data.cps_tools + data.cps_camp + data.cps_table + data.cps_tente + data.cps_corde + data.cps_enclume;
     data.total_count += data.cps
 }, 0);
 
