@@ -31,11 +31,31 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     corde_price : 100,
     cps_corde : 0,
     total_corde : 0,
-    
+
     nb_enclume : 0,
     enclume_price : 100,
     cps_enclume : 0,
     total_enclume : 0,
+
+    nb_epee : 0,
+    epee_price : 100,
+    cps_epee : 0,
+    total_epee : 0,
+
+    nb_armure : 0,
+    armure_price : 100,
+    cps_armure : 0,
+    total_armure : 0,
+
+    nb_dog : 0,
+    dog_price : 100,
+    cps_dog : 0,
+    total_dog : 0,
+
+    nb_mannequin : 0,
+    mannequin_price : 100,
+    cps_mannequin : 0,
+    total_mannequin : 0,
 };
 
 // let data = {
@@ -181,6 +201,22 @@ const sous_menu_enclume = document.querySelector(".sous_menu_enclume");
 const cps_enclume_elem = document.querySelector(".cps_enclume");
 const total_enclume_elem = document.querySelector(".total_enclume");
 
+const sous_menu_epee = document.querySelector(".sous_menu_epee");
+const cps_epee_elem = document.querySelector(".cps_epee");
+const total_epee_elem = document.querySelector(".total_epee");
+
+const sous_menu_armure = document.querySelector(".sous_menu_armure");
+const cps_armure_elem = document.querySelector(".cps_armure");
+const total_armure_elem = document.querySelector(".total_armure");
+
+const sous_menu_dog = document.querySelector(".sous_menu_dog");
+const cps_dog_elem = document.querySelector(".cps_dog");
+const total_dog_elem = document.querySelector(".total_dog");
+
+const sous_menu_mannequin = document.querySelector(".sous_menu_mannequin");
+const cps_mannequin_elem = document.querySelector(".cps_mannequin");
+const total_mannequin_elem = document.querySelector(".total_mannequin");
+
 
 /****************************** compteur ******************************/
 
@@ -220,6 +256,26 @@ const nb_corde_elem = document.querySelector(".nb_corde");
 const enclume_upgrade = document.querySelector(".enclume_upgrade");
 const enclume_price_elem = document.querySelector(".enclume_price");
 const nb_enclume_elem = document.querySelector(".nb_enclume");
+
+//var epee
+const epee_upgrade = document.querySelector(".epee_upgrade");
+const epee_price_elem = document.querySelector(".epee_price");
+const nb_epee_elem = document.querySelector(".nb_epee");
+
+//var armure
+const armure_upgrade = document.querySelector(".armure_upgrade");
+const armure_price_elem = document.querySelector(".armure_price");
+const nb_armure_elem = document.querySelector(".nb_armure");
+
+//var dog
+const dog_upgrade = document.querySelector(".dog_upgrade");
+const dog_price_elem = document.querySelector(".dog_price");
+const nb_dog_elem = document.querySelector(".nb_dog");
+
+//var dog
+const mannequin_upgrade = document.querySelector(".mannequin_upgrade");
+const mannequin_price_elem = document.querySelector(".mannequin_price");
+const nb_mannequin_elem = document.querySelector(".nb_mannequin");
 
 
 let user_data = JSON.parse(localStorage.getItem('user_data')) || data;
@@ -342,6 +398,80 @@ enclume_upgrade.addEventListener('click', () => {
         enclume_price_elem.textContent = data.enclume_price;
     }
 });
+
+//gère les attribut de epee
+epee_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.epee_price)
+    {
+        data.nb_epee += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.epee_price;
+        data.epee_price += 3;
+        data.cps_epee = 1*data.nb_epee;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_epee_elem.textContent = data.nb_epee;
+        epee_price_elem.textContent = data.epee_price;
+    }
+});
+
+//gère les attribut de armure
+armure_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.armure_price)
+    {
+        data.nb_armure += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.armure_price;
+        data.armure_price += 3;
+        data.cps_armure = 1*data.nb_armure;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_armure_elem.textContent = data.nb_armure;
+        armure_price_elem.textContent = data.armure_price;
+    }
+});
+
+//gère les attribut de dog
+dog_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.dog_price)
+    {
+        data.nb_dog += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.dog_price;
+        data.dog_price += 3;
+        data.cps_dog = 1*data.nb_dog;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_dog_elem.textContent = data.nb_dog;
+        dog_price_elem.textContent = data.dog_price;
+    }
+});
+
+//gère les attribut de mannequin
+mannequin_upgrade.addEventListener('click', () => {
+    //sauvegarde du compteur de camp
+    if(data.current_count >= data.mannequin_price)
+    {
+        data.nb_mannequin += 1;
+        data.muted_music = background_music.muted;
+        data.current_count -= data.mannequin_price;
+        data.mannequin_price += 3;
+        data.cps_mannequin = 1*data.nb_mannequin;
+
+        localStorage.setItem('user_data', JSON.stringify(data));
+    
+        nb_mannequin_elem.textContent = data.nb_mannequin;
+        mannequin_price_elem.textContent = data.mannequin_price;
+    }
+});
+
+
 
 /**
  * ----------------- FIN UPGRADE ----------------------------------------------------------------------------------------------------------------------------------
@@ -487,6 +617,11 @@ window.setInterval(() => {
     data.total_tente += data.cps_tente;
     data.total_corde += data.cps_corde;
     data.total_enclume += data.cps_enclume;
+    data.total_epee += data.cps_epee;
+    data.total_armure += data.cps_armure;
+    data.total_dog += data.cps_dog;
+    data.total_mannequin += data.cps_mannequin;
+
     localStorage.setItem('user_data', JSON.stringify(data));
 }, 1000);
 
@@ -503,6 +638,10 @@ window.setInterval(() => {
     nb_tente_elem.textContent = data.nb_tente;
     nb_corde_elem.textContent = data.nb_corde;
     nb_enclume_elem.textContent = data.nb_enclume;
+    nb_epee_elem.textContent = data.nb_epee;
+    nb_armure_elem.textContent = data.nb_armure;
+    nb_dog_elem.textContent = data.nb_dog;
+    nb_mannequin_elem.textContent = data.nb_mannequin;
 
 
     //mise a jour de l'affichage des prix
@@ -512,32 +651,48 @@ window.setInterval(() => {
     tente_price_elem.textContent = "prix : " + data.tente_price.toFixed(2) + " or";
     corde_price_elem.textContent = "prix : " + data.corde_price.toFixed(2) + " or";
     enclume_price_elem.textContent = "prix : " + data.enclume_price.toFixed(2) + " or";
+    epee_price_elem.textContent = "prix : " + data.epee_price.toFixed(2) + " or";
+    armure_price_elem.textContent = "prix : " + data.armure_price.toFixed(2) + " or";
+    dog_price_elem.textContent = "prix : " + data.dog_price.toFixed(2) + " or";
+    mannequin_price_elem.textContent = "prix : " + data.mannequin_price.toFixed(2) + " or";
 
 
     //maj affichage sous menu upgrade
-    cps_tools_elem.textContent = "Les outils vous rapportent " + data.cps_tools.toFixed(2) + " OpS soit " + (data.cps_tools*100/data.cps).toFixed(2) + "%";
+    cps_tools_elem.textContent = "Les outils vous rapportent " + data.cps_tools.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_tools * 100 / data.cps)).toFixed(2) + "%";
     total_tools_elem.textContent = "Les outils vous ont rapporté un total de " + data.total_tools.toFixed(2) + " or";
     
-    cps_camp_elem.textContent = "Le feu de camp vous rapporte " + data.cps_camp.toFixed(2) + " OpS soit " + (data.cps_camp*100/data.cps).toFixed(2) + "%";
+    cps_camp_elem.textContent = "Le feu de camp vous rapporte " + data.cps_camp.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_camp * 100 / data.cps)).toFixed(2) + "%";
     total_camp_elem.textContent = "Le feu de camp vous a rapporté un total de " + data.total_camp.toFixed(2) + " or"; 
     
-    cps_table_elem.textContent = "La table vous rapporte " + data.cps_table.toFixed(2) + " OpS soit " + (data.cps_table*100/data.cps).toFixed(2) + "%";
+    cps_table_elem.textContent = "La table vous rapporte " + data.cps_table.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_table * 100 / data.cps)).toFixed(2) + "%";
     total_table_elem.textContent = "La table vous a rapporté un total de " + data.total_table.toFixed(2) + " or";
     
-    cps_tente_elem.textContent = "La tente vous rapporte " + data.cps_tente.toFixed(2) + " OpS soit " + (data.cps_tente*100/data.cps).toFixed(2) + "%";
+    cps_tente_elem.textContent = "La tente vous rapporte " + data.cps_tente.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_tente * 100 / data.cps)).toFixed(2) + "%";
     total_tente_elem.textContent = "La tente vous a rapporté un total de " + data.total_tente.toFixed(2) + " or";
 
-    cps_corde_elem.textContent = "La corde vous rapporte " + data.cps_corde.toFixed(2) + " OpS soit " + (data.cps_corde*100/data.cps).toFixed(2) + "%";
+    cps_corde_elem.textContent = "La corde vous rapporte " + data.cps_corde.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_corde * 100 / data.cps)).toFixed(2) + "%";
     total_corde_elem.textContent = "La corde vous a rapporté un total de " + data.total_corde.toFixed(2) + " or";
 
-    cps_enclume_elem.textContent = "La enclume vous rapporte " + data.cps_enclume.toFixed(2) + " OpS soit " + (data.cps_enclume*100/data.cps).toFixed(2) + "%";
+    cps_enclume_elem.textContent = "La enclume vous rapporte " + data.cps_enclume.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_enclume * 100 / data.cps)).toFixed(2) + "%";
     total_enclume_elem.textContent = "La enclume vous a rapporté un total de " + data.total_enclume.toFixed(2) + " or";
+
+    cps_epee_elem.textContent = "La epee vous rapporte " + data.cps_epee.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_epee * 100 / data.cps)).toFixed(2) + "%";
+    total_epee_elem.textContent = "La epee vous a rapporté un total de " + data.total_epee.toFixed(2) + " or";
+
+    cps_armure_elem.textContent = "La armure vous rapporte " + data.cps_armure.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_armure * 100 / data.cps)).toFixed(2) + "%";
+    total_armure_elem.textContent = "La armure vous a rapporté un total de " + data.total_armure.toFixed(2) + " or";
+
+    cps_dog_elem.textContent = "La dog vous rapporte " + data.cps_dog.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_dog * 100 / data.cps)).toFixed(2) + "%";
+    total_dog_elem.textContent = "La dog vous a rapporté un total de " + data.total_dog.toFixed(2) + " or";
+
+    cps_mannequin_elem.textContent = "La mannequin vous rapporte " + data.cps_mannequin.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_mannequin * 100 / data.cps)).toFixed(2) + "%";
+    total_mannequin_elem.textContent = "La mannequin vous a rapporté un total de " + data.total_mannequin.toFixed(2) + " or";
 
 }, 0);
 
 
 setInterval(() => {
-    data.cps = data.cps_tools + data.cps_camp + data.cps_table + data.cps_tente + data.cps_corde + data.cps_enclume;
+    data.cps = data.cps_tools + data.cps_camp + data.cps_table + data.cps_tente + data.cps_corde + data.cps_enclume + data.cps_epee + data.cps_armure + data.cps_dog + data.cps_mannequin;
     data.total_count += data.cps
 }, 0);
 
