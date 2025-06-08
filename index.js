@@ -725,7 +725,6 @@ window.setInterval(() => {
     if(data.total_count > data.camp_price)
     {
         camp_upgrade.style.visibility = "visible";
-        camp_upgrade.style.opacity = 0.7;
     }
     if(data.total_count > data.table_price)
     {
