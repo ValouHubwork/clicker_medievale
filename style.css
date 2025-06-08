@@ -8,6 +8,16 @@
     src: url(./ressources/fonts/Jacquard_24/Jacquard24-Regular.ttf) format('truetype');
 }
 
+@font-face {
+    font-family: "upheaval";
+    src: url(./ressources/fonts/upheaval/upheavtt.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: "gothic_pixel";
+    src: url(./ressources/fonts/gothicpixels/GothicPixels.ttf) format('truetype');
+}
+
 body
 {
     width: 100vw;
@@ -219,8 +229,9 @@ body
     align-items: flex-start;
     gap: 1%;
     border: 1px solid red;
-    opacity: 0.8;
+    opacity: 0.7;
     transition: 0.2s;
+    margin-top: 4px;
 }
 
 .upgrade_container:hover
@@ -302,13 +313,15 @@ body
 .sous_menu_upgrade
 {
     position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 300px;
     height: 150px;
-    transition: top 0.2s ease, left 0.2s ease, opacity 0.3s ease;
+    transition: top 0.2s ease, left 0.2s ease, opacity 0.3s ease, transform 0.2s;
     visibility: hidden;
     opacity: 0;
     background-color: blueviolet;
