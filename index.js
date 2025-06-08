@@ -13,47 +13,47 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     total_tools : 0,
 
     nb_camp : 0,
-    camp_price : 100,
+    camp_price : 30,
     cps_camp : 0,
     total_camp : 0,
 
     nb_table : 0,
-    table_price : 100,
+    table_price : 80,
     cps_table : 0,
     total_table : 0,
 
     nb_tente : 0,
-    tente_price : 100,
+    tente_price : 200,
     cps_tente : 0,
     total_tente : 0,
 
     nb_corde : 0,
-    corde_price : 100,
+    corde_price : 600,
     cps_corde : 0,
     total_corde : 0,
 
     nb_enclume : 0,
-    enclume_price : 100,
+    enclume_price : 1500,
     cps_enclume : 0,
     total_enclume : 0,
 
     nb_epee : 0,
-    epee_price : 100,
+    epee_price : 4000,
     cps_epee : 0,
     total_epee : 0,
 
     nb_armure : 0,
-    armure_price : 100,
+    armure_price : 9000,
     cps_armure : 0,
     total_armure : 0,
 
     nb_dog : 0,
-    dog_price : 100,
+    dog_price : 25000,
     cps_dog : 0,
     total_dog : 0,
 
     nb_mannequin : 0,
-    mannequin_price : 100,
+    mannequin_price : 60000,
     cps_mannequin : 0,
     total_mannequin : 0,
 };
@@ -293,181 +293,281 @@ if (background_music.muted){
 
 //gère les attribut de tools
 tools_upgrade.addEventListener('click', () => {
+    const base_tools_price = 10;      // coût initial plus petit
+    const cost_multiplier = 1.08;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_tools;
+    const current_cost = base_tools_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
     //sauvegarde du compteur de tools
-    if(data.current_count >= data.tools_price)
+    if(data.current_count >= current_cost)
     {
         data.nb_tools += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.tools_price;
-        data.tools_price += 3;
-        data.cps_tools = 0.1*data.nb_tools;
+        data.current_count -= current_cost;
 
+        const next_cost = base_tools_price * Math.pow(cost_multiplier, data.nb_tools) + cost_log_coef * Math.log(data.nb_tools + 1);
+        data.tools_price = next_cost;
+
+        data.cps_tools = 0.05 * Math.pow(data.nb_tools + 1, 1.1);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_tools_elem.textContent = data.nb_tools;
-        tools_price_elem.textContent = data.tools_price;
+        tools_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de camp
 camp_upgrade.addEventListener('click', () => {
+    const base_camp_price = 30;      // coût initial plus petit
+    const cost_multiplier = 1.09;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_camp;
+    const current_cost = base_camp_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
     //sauvegarde du compteur de camp
-    if(data.current_count >= data.camp_price)
+    if(data.current_count >= current_cost)
     {
         data.nb_camp += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.camp_price;
-        data.camp_price += 3;
-        data.cps_camp = 1*data.nb_camp;
+        data.current_count -= current_cost;
 
+        const next_cost = base_camp_price * Math.pow(cost_multiplier, data.nb_camp) + cost_log_coef * Math.log(data.nb_camp + 1);
+        data.camp_price = next_cost;
+
+        data.cps_camp = 0.2 * Math.pow(data.nb_camp + 1, 1.1);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_camp_elem.textContent = data.nb_camp;
-        camp_price_elem.textContent = data.camp_price;
+        camp_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de table
 table_upgrade.addEventListener('click', () => {
-    //sauvegarde du compteur de camp
-    if(data.current_count >= data.table_price)
+    const base_table_price = 80;      // coût initial plus petit
+    const cost_multiplier = 1.1;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_table;
+    const current_cost = base_table_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
+    //sauvegarde du compteur de table
+    if(data.current_count >= current_cost)
     {
         data.nb_table += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.table_price;
-        data.table_price += 3;
-        data.cps_table = 1*data.nb_table;
+        data.current_count -= current_cost;
 
+        const next_cost = base_table_price * Math.pow(cost_multiplier, data.nb_table) + cost_log_coef * Math.log(data.nb_table + 1);
+        data.table_price = next_cost;
+
+        data.cps_table = 0.6 * Math.pow(data.nb_table + 1, 1.08);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_table_elem.textContent = data.nb_table;
-        table_price_elem.textContent = data.table_price;
+        table_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de tente
 tente_upgrade.addEventListener('click', () => {
-    //sauvegarde du compteur de camp
-    if(data.current_count >= data.tente_price)
+    const base_tente_price = 200;      // coût initial plus petit
+    const cost_multiplier = 1.11;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_tente;
+    const current_cost = base_tente_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
+    //sauvegarde du compteur de tente
+    if(data.current_count >= current_cost)
     {
         data.nb_tente += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.tente_price;
-        data.tente_price += 3;
-        data.cps_tente = 1*data.nb_tente;
+        data.current_count -= current_cost;
 
+        const next_cost = base_tente_price * Math.pow(cost_multiplier, data.nb_tente) + cost_log_coef * Math.log(data.nb_tente + 1);
+        data.tente_price = next_cost;
+
+        data.cps_tente = 1.5 * Math.pow(data.nb_tente + 1, 1.07);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_tente_elem.textContent = data.nb_tente;
-        tente_price_elem.textContent = data.tente_price;
+        tente_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de corde
 corde_upgrade.addEventListener('click', () => {
-    //sauvegarde du compteur de camp
-    if(data.current_count >= data.corde_price)
+    const base_corde_price = 600;      // coût initial plus petit
+    const cost_multiplier = 1.12;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_corde;
+    const current_cost = base_corde_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
+    //sauvegarde du compteur de corde
+    if(data.current_count >= current_cost)
     {
         data.nb_corde += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.corde_price;
-        data.corde_price += 3;
-        data.cps_corde = 1*data.nb_corde;
+        data.current_count -= current_cost;
 
+        const next_cost = base_corde_price * Math.pow(cost_multiplier, data.nb_corde) + cost_log_coef * Math.log(data.nb_corde + 1);
+        data.corde_price = next_cost;
+
+        data.cps_corde = 4 * Math.pow(data.nb_corde + 1, 1.06);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_corde_elem.textContent = data.nb_corde;
-        corde_price_elem.textContent = data.corde_price;
+        corde_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de enclume
 enclume_upgrade.addEventListener('click', () => {
-    //sauvegarde du compteur de camp
-    if(data.current_count >= data.enclume_price)
+    const base_enclume_price = 1500;      // coût initial plus petit
+    const cost_multiplier = 1.13;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_enclume;
+    const current_cost = base_enclume_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
+    //sauvegarde du compteur de enclume
+    if(data.current_count >= current_cost)
     {
         data.nb_enclume += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.enclume_price;
-        data.enclume_price += 3;
-        data.cps_enclume = 1*data.nb_enclume;
+        data.current_count -= current_cost;
 
+        const next_cost = base_enclume_price * Math.pow(cost_multiplier, data.nb_enclume) + cost_log_coef * Math.log(data.nb_enclume + 1);
+        data.enclume_price = next_cost;
+
+        data.cps_enclume = 10 * Math.pow(data.nb_enclume + 1, 1.05);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_enclume_elem.textContent = data.nb_enclume;
-        enclume_price_elem.textContent = data.enclume_price;
+        enclume_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de epee
 epee_upgrade.addEventListener('click', () => {
-    //sauvegarde du compteur de camp
-    if(data.current_count >= data.epee_price)
+    const base_epee_price = 4000;      // coût initial plus petit
+    const cost_multiplier = 1.14;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_epee;
+    const current_cost = base_epee_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
+    //sauvegarde du compteur de epee
+    if(data.current_count >= current_cost)
     {
         data.nb_epee += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.epee_price;
-        data.epee_price += 3;
-        data.cps_epee = 1*data.nb_epee;
+        data.current_count -= current_cost;
 
+        const next_cost = base_epee_price * Math.pow(cost_multiplier, data.nb_epee) + cost_log_coef * Math.log(data.nb_epee + 1);
+        data.epee_price = next_cost;
+
+        data.cps_epee = 30 * Math.pow(data.nb_epee + 1, 1.04);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_epee_elem.textContent = data.nb_epee;
-        epee_price_elem.textContent = data.epee_price;
+        epee_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de armure
 armure_upgrade.addEventListener('click', () => {
-    //sauvegarde du compteur de camp
-    if(data.current_count >= data.armure_price)
+    const base_armure_price = 9000;      // coût initial plus petit
+    const cost_multiplier = 1.15;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_armure;
+    const current_cost = base_armure_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
+    //sauvegarde du compteur de armure
+    if(data.current_count >= current_cost)
     {
         data.nb_armure += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.armure_price;
-        data.armure_price += 3;
-        data.cps_armure = 1*data.nb_armure;
+        data.current_count -= current_cost;
 
+        const next_cost = base_armure_price * Math.pow(cost_multiplier, data.nb_armure) + cost_log_coef * Math.log(data.nb_armure + 1);
+        data.armure_price = next_cost;
+
+        data.cps_armure = 70 * Math.pow(data.nb_armure + 1, 1.03);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_armure_elem.textContent = data.nb_armure;
-        armure_price_elem.textContent = data.armure_price;
+        armure_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de dog
 dog_upgrade.addEventListener('click', () => {
-    //sauvegarde du compteur de camp
-    if(data.current_count >= data.dog_price)
+    const base_dog_price = 25000;      // coût initial plus petit
+    const cost_multiplier = 1.16;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_dog;
+    const current_cost = base_dog_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
+    //sauvegarde du compteur de dog
+    if(data.current_count >= current_cost)
     {
         data.nb_dog += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.dog_price;
-        data.dog_price += 3;
-        data.cps_dog = 1*data.nb_dog;
+        data.current_count -= current_cost;
 
+        const next_cost = base_dog_price * Math.pow(cost_multiplier, data.nb_dog) + cost_log_coef * Math.log(data.nb_dog + 1);
+        data.dog_price = next_cost;
+
+        data.cps_dog = 200 * Math.pow(data.nb_dog + 1, 1.02);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_dog_elem.textContent = data.nb_dog;
-        dog_price_elem.textContent = data.dog_price;
+        dog_price_elem.textContent = next_cost;
     }
 });
 
 //gère les attribut de mannequin
 mannequin_upgrade.addEventListener('click', () => {
-    //sauvegarde du compteur de camp
-    if(data.current_count >= data.mannequin_price)
+    const base_mannequin_price = 60000;      // coût initial plus petit
+    const cost_multiplier = 1.17;    // croissance plus lente
+    const cost_log_coef = 1;         // log moins impactant
+    const n = data.nb_mannequin;
+    const current_cost = base_mannequin_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
+
+    //sauvegarde du compteur de mannequin
+    if(data.current_count >= current_cost)
     {
         data.nb_mannequin += 1;
         data.muted_music = background_music.muted;
-        data.current_count -= data.mannequin_price;
-        data.mannequin_price += 3;
-        data.cps_mannequin = 1*data.nb_mannequin;
+        data.current_count -= current_cost;
 
+        const next_cost = base_mannequin_price * Math.pow(cost_multiplier, data.nb_mannequin) + cost_log_coef * Math.log(data.nb_mannequin + 1);
+        data.mannequin_price = next_cost;
+
+        data.cps_mannequin = 600 * Math.pow(data.nb_mannequin + 1, 1.01);  // progression plus douce du gain
+
+        // Sauvegarde et mise à jour UI
         localStorage.setItem('user_data', JSON.stringify(data));
-    
+
         nb_mannequin_elem.textContent = data.nb_mannequin;
-        mannequin_price_elem.textContent = data.mannequin_price;
+        mannequin_price_elem.textContent = next_cost;
     }
 });
 
@@ -688,19 +788,65 @@ window.setInterval(() => {
     cps_mannequin_elem.textContent = "La mannequin vous rapporte " + data.cps_mannequin.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_mannequin * 100 / data.cps)).toFixed(2) + "%";
     total_mannequin_elem.textContent = "La mannequin vous a rapporté un total de " + data.total_mannequin.toFixed(2) + " or";
 
+    if(data.total_count > data.camp_price)
+    {
+        camp_upgrade.style.visibility = "visible";
+        camp_upgrade.style.opacity = 1;
+    }
+    if(data.total_count > data.table_price)
+    {
+        table_upgrade.style.visibility = "visible";
+        table_upgrade.style.opacity = 1;
+    }
+    if(data.total_count > data.tente_price)
+    {
+        tente_upgrade.style.visibility = "visible";
+        tente_upgrade.style.opacity = 1;
+    }
+    if(data.total_count > data.corde_price)
+    {
+        corde_upgrade.style.visibility = "visible";
+        corde_upgrade.style.opacity = 1;
+    }
+    if(data.total_count > data.enclume_price)
+    {
+        enclume_upgrade.style.visibility = "visible";
+        enclume_upgrade.style.opacity = 1;
+    }
+    if(data.total_count > data.epee_price)
+    {
+        epee_upgrade.style.visibility = "visible";
+        epee_upgrade.style.opacity = 1;
+    }
+    if(data.total_count > data.armure_price)
+    {
+        armure_upgrade.style.visibility = "visible";
+        armure_upgrade.style.opacity = 1;
+    }
+    if(data.total_count > data.dog_price)
+    {
+        dog_upgrade.style.visibility = "visible";
+        dog_upgrade.style.opacity = 1;
+    }
+    if(data.total_count > data.mannequin_price)
+    {
+        mannequin_upgrade.style.visibility = "visible";
+        mannequin_upgrade.style.opacity = 1;
+    }
 }, 0);
 
 
 setInterval(() => {
     data.cps = data.cps_tools + data.cps_camp + data.cps_table + data.cps_tente + data.cps_corde + data.cps_enclume + data.cps_epee + data.cps_armure + data.cps_dog + data.cps_mannequin;
-    data.total_count += data.cps
-}, 0);
+    data.total_count = data.total_count + data.cps;
+}, 1000);
 
 
 //clic sur animations
 animations_visible_elem.addEventListener("click", (e) => {
-    let clic = 1+0.2*data.cps;
+    let clic = 1+0.06*data.cps;
     data.current_count += clic;
+    data.total_count = data.total_count + clic;
     click_elem.style.visibility = "visible"
     click_elem.style.opacity = 1;
     click_elem.style.left = (e.pageX-20) + "px";
