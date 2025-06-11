@@ -13,47 +13,47 @@ let data = JSON.parse(localStorage.getItem('user_data')) || {
     total_tools : 0,
 
     nb_camp : 0,
-    camp_price : 30,
+    camp_price : 100,
     cps_camp : 0,
     total_camp : 0,
 
     nb_table : 0,
-    table_price : 80,
+    table_price : 400,
     cps_table : 0,
     total_table : 0,
 
     nb_tente : 0,
-    tente_price : 200,
+    tente_price : 1000,
     cps_tente : 0,
     total_tente : 0,
 
     nb_corde : 0,
-    corde_price : 600,
+    corde_price : 2500,
     cps_corde : 0,
     total_corde : 0,
 
     nb_enclume : 0,
-    enclume_price : 1500,
+    enclume_price : 6000,
     cps_enclume : 0,
     total_enclume : 0,
 
     nb_epee : 0,
-    epee_price : 4000,
+    epee_price : 20000,
     cps_epee : 0,
     total_epee : 0,
 
     nb_armure : 0,
-    armure_price : 9000,
+    armure_price : 60000,
     cps_armure : 0,
     total_armure : 0,
 
     nb_dog : 0,
-    dog_price : 25000,
+    dog_price : 150000,
     cps_dog : 0,
     total_dog : 0,
 
     nb_mannequin : 0,
-    mannequin_price : 60000,
+    mannequin_price : 400000,
     cps_mannequin : 0,
     total_mannequin : 0,
 };
@@ -228,8 +228,8 @@ if (background_music.muted){
 //gère les attribut de tools
 tools_upgrade.addEventListener('click', () => {
     const base_tools_price = 10;      // coût initial plus petit
-    const cost_multiplier = 1.08;    // croissance plus lente
-    const cost_log_coef = 1;         // log moins impactant
+    const cost_multiplier = 1.08;     // croissance plus lente
+    const cost_log_coef = 1;          // log moins impactant
     const n = data.nb_tools;
     const current_cost = base_tools_price * Math.pow(cost_multiplier, n) + cost_log_coef * Math.log(n + 1);
 
@@ -255,7 +255,7 @@ tools_upgrade.addEventListener('click', () => {
 
 //gère les attribut de camp
 camp_upgrade.addEventListener('click', () => {
-    const base_camp_price = 30;      // coût initial plus petit
+    const base_camp_price = 100;      // coût initial plus petit
     const cost_multiplier = 1.09;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_camp;
@@ -283,7 +283,7 @@ camp_upgrade.addEventListener('click', () => {
 
 //gère les attribut de table
 table_upgrade.addEventListener('click', () => {
-    const base_table_price = 80;      // coût initial plus petit
+    const base_table_price = 400;      // coût initial plus petit
     const cost_multiplier = 1.1;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_table;
@@ -311,7 +311,7 @@ table_upgrade.addEventListener('click', () => {
 
 //gère les attribut de tente
 tente_upgrade.addEventListener('click', () => {
-    const base_tente_price = 200;      // coût initial plus petit
+    const base_tente_price = 1000;      // coût initial plus petit
     const cost_multiplier = 1.11;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_tente;
@@ -339,7 +339,7 @@ tente_upgrade.addEventListener('click', () => {
 
 //gère les attribut de corde
 corde_upgrade.addEventListener('click', () => {
-    const base_corde_price = 600;      // coût initial plus petit
+    const base_corde_price = 2500;      // coût initial plus petit
     const cost_multiplier = 1.12;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_corde;
@@ -367,7 +367,7 @@ corde_upgrade.addEventListener('click', () => {
 
 //gère les attribut de enclume
 enclume_upgrade.addEventListener('click', () => {
-    const base_enclume_price = 1500;      // coût initial plus petit
+    const base_enclume_price = 6000;      // coût initial plus petit
     const cost_multiplier = 1.13;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_enclume;
@@ -395,7 +395,7 @@ enclume_upgrade.addEventListener('click', () => {
 
 //gère les attribut de epee
 epee_upgrade.addEventListener('click', () => {
-    const base_epee_price = 4000;      // coût initial plus petit
+    const base_epee_price = 20000;      // coût initial plus petit
     const cost_multiplier = 1.14;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_epee;
@@ -423,7 +423,7 @@ epee_upgrade.addEventListener('click', () => {
 
 //gère les attribut de armure
 armure_upgrade.addEventListener('click', () => {
-    const base_armure_price = 9000;      // coût initial plus petit
+    const base_armure_price = 60000;      // coût initial plus petit
     const cost_multiplier = 1.15;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_armure;
@@ -451,7 +451,7 @@ armure_upgrade.addEventListener('click', () => {
 
 //gère les attribut de dog
 dog_upgrade.addEventListener('click', () => {
-    const base_dog_price = 25000;      // coût initial plus petit
+    const base_dog_price = 150000;      // coût initial plus petit
     const cost_multiplier = 1.16;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_dog;
@@ -479,7 +479,7 @@ dog_upgrade.addEventListener('click', () => {
 
 //gère les attribut de mannequin
 mannequin_upgrade.addEventListener('click', () => {
-    const base_mannequin_price = 60000;      // coût initial plus petit
+    const base_mannequin_price = 400000;      // coût initial plus petit
     const cost_multiplier = 1.17;    // croissance plus lente
     const cost_log_coef = 1;         // log moins impactant
     const n = data.nb_mannequin;
