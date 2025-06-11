@@ -724,47 +724,39 @@ window.setInterval(() => {
 
     if(data.total_count > data.camp_price && data.nb_tools >= 5)
     {
-        camp_upgrade.style.visibility = "visible";
-    }
-    if(data.total_count > data.table_price && data.nb_camp >= 10)
+        camp_upgrade.classList.remove("hidden");
+    }0
+    if(data.total_count > data.table_price && data.nb_camp >= 5)
     {
-        table_upgrade.style.visibility = "visible";
-        table_upgrade.style.opacity = 0.7;
+        table_upgrade.classList.remove("hidden");
     }
-    if(data.total_count > data.tente_price && data.nb_table >= 10)
+    if(data.total_count > data.tente_price && data.nb_table >= 5)
     {
-        tente_upgrade.style.visibility = "visible";
-        tente_upgrade.style.opacity = 0.7;
+        tente_upgrade.classList.remove("hidden");
     }
-    if(data.total_count > data.corde_price && data.nb_tente >= 10)
+    if(data.total_count > data.corde_price && data.nb_tente >= 5)
     {
-        corde_upgrade.style.visibility = "visible";
-        corde_upgrade.style.opacity = 0.7;
+        corde_upgrade.classList.remove("hidden");
     }
-    if(data.total_count > data.enclume_price && data.nb_corde >= 10)
+    if(data.total_count > data.enclume_price && data.nb_corde >= 5)
     {
-        enclume_upgrade.style.visibility = "visible";
-        enclume_upgrade.style.opacity = 0.7;
+        enclume_upgrade.classList.remove("hidden");
     }
-    if(data.total_count > data.epee_price && data.nb_enclume >= 10)
+    if(data.total_count > data.epee_price && data.nb_enclume >= 5)
     {
-        epee_upgrade.style.visibility = "visible";
-        epee_upgrade.style.opacity = 0.7;
+        epee_upgrade.classList.remove("hidden");
     }
-    if(data.total_count > data.armure_price && data.nb_epee >= 10)
+    if(data.total_count > data.armure_price && data.nb_epee >= 5)
     {
-        armure_upgrade.style.visibility = "visible";
-        armure_upgrade.style.opacity = 0.7;
+        armure_upgrade.classList.remove("hidden");
     }
-    if(data.total_count > data.dog_price && data.nb_armure >= 10)
+    if(data.total_count > data.dog_price && data.nb_armure >= 5)
     {
-        dog_upgrade.style.visibility = "visible";
-        dog_upgrade.style.opacity = 0.7;
+        dog_upgrade.classList.remove("hidden");
     }
-    if(data.total_count > data.mannequin_price && data.nb_dog >= 10)
+    if(data.total_count > data.mannequin_price && data.nb_dog >= 5)
     {
-        mannequin_upgrade.style.visibility = "visible";
-        mannequin_upgrade.style.opacity = 0.7;
+        mannequin_upgrade.classList.remove("hidden");
     }
 }, 0);
 

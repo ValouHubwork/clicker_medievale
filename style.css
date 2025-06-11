@@ -296,17 +296,11 @@ body
     font-size: 65px;
 }
 
-.camp_upgrade,
-.table_upgrade,
-.tente_upgrade,
-.corde_upgrade,
-.enclume_upgrade,
-.epee_upgrade,
-.armure_upgrade,
-.dog_upgrade,
-.mannequin_upgrade
+.hidden
 {
     visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
 }
 
 .sous_menu_upgrade
