@@ -722,46 +722,46 @@ window.setInterval(() => {
     cps_mannequin_elem.textContent = "La mannequin vous rapporte " + data.cps_mannequin.toFixed(2) + " OpS soit " + (data.cps === 0 ? 0 : (data.cps_mannequin * 100 / data.cps)).toFixed(2) + "%";
     total_mannequin_elem.textContent = "La mannequin vous a rapporté un total de " + data.total_mannequin.toFixed(2) + " or";
 
-    if(data.total_count > data.camp_price)
+    if(data.total_count > data.camp_price && data.nb_tools >= 5)
     {
         camp_upgrade.style.visibility = "visible";
     }
-    if(data.total_count > data.table_price)
+    if(data.total_count > data.table_price && data.nb_camp >= 10)
     {
         table_upgrade.style.visibility = "visible";
         table_upgrade.style.opacity = 0.7;
     }
-    if(data.total_count > data.tente_price)
+    if(data.total_count > data.tente_price && data.nb_table >= 10)
     {
         tente_upgrade.style.visibility = "visible";
         tente_upgrade.style.opacity = 0.7;
     }
-    if(data.total_count > data.corde_price)
+    if(data.total_count > data.corde_price && data.nb_tente >= 10)
     {
         corde_upgrade.style.visibility = "visible";
         corde_upgrade.style.opacity = 0.7;
     }
-    if(data.total_count > data.enclume_price)
+    if(data.total_count > data.enclume_price && data.nb_corde >= 10)
     {
         enclume_upgrade.style.visibility = "visible";
         enclume_upgrade.style.opacity = 0.7;
     }
-    if(data.total_count > data.epee_price)
+    if(data.total_count > data.epee_price && data.nb_enclume >= 10)
     {
         epee_upgrade.style.visibility = "visible";
         epee_upgrade.style.opacity = 0.7;
     }
-    if(data.total_count > data.armure_price)
+    if(data.total_count > data.armure_price && data.nb_epee >= 10)
     {
         armure_upgrade.style.visibility = "visible";
         armure_upgrade.style.opacity = 0.7;
     }
-    if(data.total_count > data.dog_price)
+    if(data.total_count > data.dog_price && data.nb_armure >= 10)
     {
         dog_upgrade.style.visibility = "visible";
         dog_upgrade.style.opacity = 0.7;
     }
-    if(data.total_count > data.mannequin_price)
+    if(data.total_count > data.mannequin_price && data.nb_dog >= 10)
     {
         mannequin_upgrade.style.visibility = "visible";
         mannequin_upgrade.style.opacity = 0.7;
@@ -777,7 +777,7 @@ setInterval(() => {
 
 //clic sur animations
 animations_visible_elem.addEventListener("click", (e) => {
-    let clic = 1+0.08*data.cps;
+    let clic = 1+0.15*data.cps;
     data.current_count += clic;
     data.total_count = data.total_count + clic;
     click_elem.style.visibility = "visible"
